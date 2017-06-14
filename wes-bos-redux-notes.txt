@@ -1,0 +1,212 @@
+not necessarily about redux, but look at react-router in the `reduxstagram.js` file:
+```
+import React from 'react';
+import { render } from 'react-dom';
+import css from './styles/style.styl';
+import Main from './components/Main';
+import PhotoGrid from './components/PhotoGrid';
+import Single from './components/Single';
+
+//import react router deps
+import { Router, Route, IndexRoute, BrowserHistory } from 'react-router';
+
+const router = (
+   <Router history={ BrowserHistory }>
+      <Route path="/" component={ Main }>
+         <IndexRoute component={ PhotoGrid }></IndexRoute>
+         <Route path="/view/:postId" component={ Single }></Route>
+      </Route>
+   </Router>
+)
+
+render(router, document.getElementById("root"));
+
+```
+
+first, we've created our simple components in other files and imported them here. then we've declared our router as its own component, with `const = router`. Then we've specified at '/' will be our Main component and its children components will be the `PhotoGrid` and `Single` components. if path is the index (which is '/'), the index child component will be Photogrid, if the view is not, its path will be whatever the postId is and the component will be the 'Single' component. We then add the 'router' const to our render function so this router will show up.
+
+Also important to note, this is our `Main` component...take a look at where `this.props.children` resides:
+
+```
+import React from 'react';
+import { Link } from 'react-router';
+
+const Main = React.createClass({
+   render() {
+      return (
+         <div>
+            <h1>
+               <Link to="/">Reduxstagram</Link>
+            </h1>
+            {React.cloneElement(this.props.children, this.props)};
+         </div>
+      )
+   }
+});
+
+export default Main;
+//this 'export' allows us to import the component in our reduxstagram file
+```
+
+////////////////////////////////////////////////////////////
+CREATING OUR REDUX STORE
+////////////////////////////////////////////////////////////
+
+in redux, we keep all our data in a 'store'...rather than holding our component state in the component, we just contain it in one giant object.
+
+1. create a store.js file
+```
+import { createStore, compse } from 'redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { browserHistory } from 'react-router';
+
+//import the root reducer
+import rootReducer from './reducers/index';
+
+//we need some default data to work with
+import comments from './data/comments';
+import posts from './data/posts';
+
+// create an object for the default data
+const defaultState = {
+   posts,
+   comments
+};
+
+//create our store (IDK what this stuff is)
+const store = createStore(rootReducer, defaultState);
+
+//create our history with the store to be exported (IDK what this method does)
+export const history = syncHistoryWithStore(browserHistory, store);
+
+//export our store
+export default store;
+
+```
+
+
+you can currently think about the store as an empty DB
+
+we need to know about
+===
+
+actions:
+- something that happens in your app (someone clicks a photo, someone likes it, someone deletes a comment, etc)...whenever this happens someone dispatches an action...the dispatch action has 2 things:
+
+1. type of action that happen (EX: incrementLikes)
+2. a payload of information that is needed (EX: which comment got deleted, what comment was added, just info about what specifically happened).
+
+
+action creators
+
+
+
+now what I've done is create a new directory under '/client' called '/actions' with a new file in it called 'actionCreators.js'...
+
+inside here...
+```
+// increment likes
+
+/* we're going to return an object because actions are just objects with a type (which is a name) and in this case, an index that describes what it is...the object is an identifier, at the end of the day */
+
+export function increment(index) {
+   return {
+      type: 'INCREMENT_LIKES',
+      index    //this is the es6 shortened version of 'index:index'
+   }
+}
+
+// add comment
+export function addComment(postId, author, comment) {
+   return {
+      type: 'ADD_COMMENT',
+      postId,
+      author,
+      comment,
+   }
+}
+
+// remove comment
+export function removeComment(postId, i) {
+   return {
+      type: 'REMOVE_COMMENT',
+      i,
+      postId
+   }
+}
+
+//NOTE: changing a page/view is also an action but is being handled by react-router
+
+/*these are the 'action creators'. we call them 'action creators' because the object returned is considered the 'action' but the function itself is the creator that will dispatch it out when called. sounds weird as hell but im rolling with it. */
+
+```
+
+
+next we'll need to create the second part of these action creators, so when these actions get fired or dispatched, how do we actually handle that data (how do we update those likes, add that comment, etc)...this is in REDUCERS.
+
+we just learned that actions/action creators get fired off or 'dispatched' with info about what happened...what it doesnt do is update our state (in redux, our store).
+
+we need to create a 'reducer' to be able to handle and update the actual state.
+
+think of actions like regular JS events (click, scroll, hover, etc) and those events are going to happen, but if no one is listening to that click nothing happens. 'reducers' listen to those events.
+
+we create a 'reducer' for every single piece of state. when posts get updated when run the 'posts reducer' and when the comments get updated, we create a 'comments reducer'.
+
+lets create a reducer...
+
+
+we created a '/reducers' directory, with `posts.js` and `comments.js` inside:
+
+posts.js
+```
+// a reducer takes in 2 things:
+
+//1. the action (what happened)
+//2. a copy of current state
+
+function posts(state =[], action) {
+   console.log(state, action);
+   return state;
+}
+
+export default posts;
+
+```
+
+comments.js
+```
+function comments(state =[], action) {
+   console.log(state, action);
+   return state;
+}
+
+export default comments;
+```
+
+BUT we can only have ONE REDUCER? WE NEED TO PUT BOTH REDUCERS IN ONE BIG REDUCER...lets make an index.js file in '/reducers':
+
+index.js:
+```
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+
+import posts from './posts';
+import comments from './comments';
+
+
+const rootReducer = combineReducers({
+   posts, comments, router: rootReducer
+});
+
+export default rootReducer;
+
+
+/*
+why are we using 'router: rootReducer'?
+   because we have 3 things in our state: posts, comments, and the changes of our URL as well
+*/
+
+```
+
+
+In the next vid we will hook it up to our app so we can fire off our actions and make sure things are running...its a lot to put together before we can see this shit run.
