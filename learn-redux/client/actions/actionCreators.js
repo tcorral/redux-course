@@ -15,7 +15,7 @@ export function addComment(postId, author, comment) {
       type: 'ADD_COMMENT',
       postId,
       author,
-      comment,
+      comment
    }
 }
 

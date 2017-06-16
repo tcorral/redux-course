@@ -96,6 +96,7 @@ actions:
 1. type of action that happen (EX: incrementLikes)
 2. a payload of information that is needed (EX: which comment got deleted, what comment was added, just info about what specifically happened).
 
+^ so the dispatch action contains what happened and where.
 
 action creators
 
@@ -172,6 +173,8 @@ function posts(state =[], action) {
 export default posts;
 
 ```
+^ //state syntax may look strange but it just sets state as a default empty array if nothing has been declared in it.
+
 
 comments.js
 ```
@@ -203,10 +206,48 @@ export default rootReducer;
 
 /*
 why are we using 'router: rootReducer'?
-   because we have 3 things in our state: posts, comments, and the changes of our URL as well
+   because we have 3 things in our state: posts, comments, and the changes of our URL as well <--important to note. its not just posts, comments.
 */
 
 ```
 
 
 In the next vid we will hook it up to our app so we can fire off our actions and make sure things are running...its a lot to put together before we can see this shit run.
+
+
+
+////////////////////////////////////////////////////////
+Integrating our store with react router
+////////////////////////////////////////////////////////
+
+
+so far our app doesnt know anything about our store, so lets change that.
+
+`import { Provider } from 'react-redux';`
+
+lets also import our store we created in addition to the history (still unsure what the 'history' portion does):
+
+`import store, { history } from './store';`
+
+
+now when we open our browser again we see all these console.log()s firing off with objects filled with post and comment content. but we dont see actions for 'Incremenet_likes' or "Add_comment" like declared in our 'actionCreators.js' file
+
+in reduxstagram.js we've already imported our "Provider", now we're going to use it as an element to expose our store to our application. we'll do this by wrapping `<Provider>` around our `<Router>` component:
+```
+const router = (
+   <Provider>
+      <Router history={ BrowserHistory }>
+         <Route path="/" component={ Main }>
+            <IndexRoute component={ PhotoGrid }></IndexRoute>
+            <Route path="/view/:postId" component={ Single }></Route>
+         </Route>
+      </Router>
+   </Provider>
+)
+```
+
+then we'll add a store prop:
+`<Provider store={store}>`
+
+now lets replace the prop value 'BrowserHistory' in <Router> to match 'history' that we've created in store.js:
+`<Router history={ history }>`

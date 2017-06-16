@@ -7,14 +7,18 @@ import Single from './components/Single';
 
 //import react router deps
 import { Router, Route, IndexRoute, BrowserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import store, { history } from './store';
 
 const router = (
-   <Router history={ BrowserHistory }>
-      <Route path="/" component={ Main }>
-         <IndexRoute component={ PhotoGrid }></IndexRoute>
-         <Route path="/view/:postId" component={ Single }></Route>
-      </Route>
-   </Router>
+   <Provider store={store}>
+      <Router history={ history }>
+         <Route path="/" component={ Main }>
+            <IndexRoute component={ PhotoGrid }></IndexRoute>
+            <Route path="/view/:postId" component={ Single }></Route>
+         </Route>
+      </Router>
+   </Provider>
 )
 
 render(router, document.getElementById("root"));
