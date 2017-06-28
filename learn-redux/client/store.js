@@ -1,5 +1,5 @@
-import { createStore, compse } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { createStore, compse, combineReducers } from 'redux';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
 //import the root reducer
@@ -15,8 +15,15 @@ const defaultState = {
    comments
 };
 
-//create our store (IDK what this stuff is)
+// let combinedReducers = combineReducers({
+//     routing: routerReducer,
+//     rootReducer
+// });
+
 const store = createStore(rootReducer, defaultState);
+
+//create our store (IDK what this stuff is)
+// const store = createStore(combinedReducers, defaultState);
 
 //create our history with the store to be exported (IDK what this method does)
 export const history = syncHistoryWithStore(browserHistory, store);
