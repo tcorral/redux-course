@@ -9,8 +9,9 @@
 5. the reducer is responsible for updating your state.
 
 * we used `matchStateToProps()` and `matchDispatchToProps()` in order to expose our state and our action functions to our components (using `connect()`).
-
-# Store
+</details>
+<details>
+<summary>Store</summary>
 In redux, we keep all our data in a 'store'...rather than holding our component state in the component, we just contain it in one giant object.
 
 in store.js:
