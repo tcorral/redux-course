@@ -4,7 +4,7 @@ In redux, we keep all our data in a 'store'...rather than holding our component 
 
 in store.js:
 ```
-import { createStore, compse } from 'redux';
+import { createStore, compose } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
