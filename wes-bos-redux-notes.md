@@ -618,7 +618,6 @@ const Photo = React.createClass({
 });
 
 export default Photo;
-
 ```
 
 
@@ -884,7 +883,6 @@ const Single = React.createClass({
 });
 
 export default Single;
-
 ```
 
 now we'll iterate over all the comments in the comments prop using .map() in the <Comment> component file:
@@ -1084,12 +1082,11 @@ function comments(state =[], action) {
 }
 
 export default comments;
-
 ```
 ^ what we're doing here:
 
--we create a switch statement in postComments() where if the action is 'ADD_COMMENT' we return the new state with the new comment.
--in comments(), we make sure the action.postId is not undefined, and if its not, we return the current state and in the specific post ID, we handle the updating of the post via the postComments() function.
+1. we create a switch statement in postComments() where if the action is 'ADD_COMMENT' we return the new state with the new comment.
+2. in comments(), we make sure the action.postId is not undefined, and if its not, we return the current state and in the specific post ID, we handle the updating of the post via the postComments() function.
 
 
 * so we create different functions to handle different things. one function to update the specific post ID comment state and one function to return the overall state with the newly updated postID comment state inside it. this is why postComments() is considered a sub-reducer, because it is used as a reducer within a reducer. fucking bizzare. wow.
@@ -1218,10 +1215,9 @@ we wanna delete the 3rd one. we return wow and neat, skip cool, and return nice 
 Hot Reloading Redux Reducers with webpack
 ///////////////////////////////////////////////////////////////////////
 
-we can do live reload in our jsx fine, but if we want to change our reducer (ex: we want to change -click = 1 like to click = 10 likes)...we can do this by
+we can do live reload in our jsx fine, but if we want to change our reducer (ex: we want to change -click = 1 like to click = 10 likes) we have to do some additional work:
 
-open store.js:
-
+store.js:
 ```
 //allows hot reload by checking to see if module has changed first then...something?
 if (module.hot) {
@@ -1231,10 +1227,10 @@ if (module.hot) {
    });
 }
 ```
-
+^ definitely worth a review
 
 ///////////////////////////y ////////////////////////////////////////////
-Hot Reloading Redux Reducers with webpack
+Redux DevTools
 ///////////////////////////////////////////////////////////////////////
 
 redux devTools' 'sweep' tab literally logs every action that is fired off and displays the state, action, etc...if you want to go 'back in time' to say, debug something, you can simply click on that action to toggle it to remove it from happening in the UI.
@@ -1258,4 +1254,4 @@ main ideas of redux
 5. the reducer is responsible for updating your state.
 
 - we used 'matchStateToProps()' and 'matchDispatchToProps()' in order to expose our state and our action functions to our components (using connect()).
--
+
