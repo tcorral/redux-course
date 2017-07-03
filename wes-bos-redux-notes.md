@@ -48,9 +48,8 @@ export default Main;
 //this 'export' allows us to import the component in our reduxstagram file
 ```
 
-////////////////////////////////////////////////////////////
-CREATING OUR REDUX STORE
-////////////////////////////////////////////////////////////
+### CREATING OUR REDUX STORE
+
 
 in redux, we keep all our data in a 'store'...rather than holding our component state in the component, we just contain it in one giant object.
 
@@ -218,9 +217,8 @@ In the next vid we will hook it up to our app so we can fire off our actions and
 
 
 
-////////////////////////////////////////////////////////
-Integrating our store with react router
-////////////////////////////////////////////////////////
+### Integrating our store with react router
+
 
 
 so far our app doesnt know anything about our store, so lets change that.
@@ -371,9 +369,7 @@ So now our store is exposed to our app and we can check it out via going to our 
 
 OOOOOK.
 
-////////////////////////////////////////////////////////////
-Understanding the reducer's job and dispatching actions
-////////////////////////////////////////////////////////////
+### Understanding the reducer's job and dispatching actions
 
 
 reminder: an action states what has happened and where, and the reducer is the change that then happens.
@@ -414,9 +410,9 @@ so we need to write some logic inside our reducer to listen and do something for
 
 ONE MORE TIME: WHEN YOU DISPATCH AN ACTION, EVERY REDUCER RUNS. IF YOU WANT TO ACT UPON THAT ACTION, YOU HAVE TO DEFINE THAT IN THE REDUCER.
 
-////////////////////////////////////////////////////////////
-Accessing Dispatch and State with Redux
-////////////////////////////////////////////////////////////
+
+### Accessing Dispatch and State with Redux
+
 
 we've got a bunch of stuff set up, but nothing on the page. lets get some posts and comments in here, but how to do it the redux way?
 
@@ -521,9 +517,9 @@ NOW when we look at our <Main> component in react we see our props that contain 
 
 
 
-////////////////////////////////////////////////////////////////////////////////////
-Displaying Redux state inside our components
-////////////////////////////////////////////////////////////////////////////////////
+### Displaying Redux state inside our components
+
+
 
 if we look, we can see our <PhotoGrid> component has access to all the props of the parent <Main> component...this is because of what we had previously defined in "Main.js":
 ```
@@ -674,9 +670,9 @@ summary:
 
 we arent able to access 'key' so if we want to access a unique identifer for ourselves we have to declare it with i={i}
 
-////////////////////////////////////////////////////////////////////////////////////
-Updating our state with reducers
-////////////////////////////////////////////////////////////////////////////////////
+
+### Updating our state with reducers
+
 
 when someone clicks a 'like' button, we want the 'increment' function to run.
 
@@ -796,9 +792,10 @@ weird, but im getting to understand it a bit better.
 
 
 
-///////////////////////////////////////////////////////////////////////
-Displaying the single component
-///////////////////////////////////////////////////////////////////////
+
+### Displaying the single component
+
+
 
 lets create the layout from our 'single' photo component:
 ```
@@ -850,9 +847,10 @@ export default Comments;
 ^ now lets import it in Single.js and we'll be good!
 
 
-///////////////////////////////////////////////////////////////////////
-Displaying state inside our components
-///////////////////////////////////////////////////////////////////////
+
+### Displaying state inside our components
+
+
 
 lets update our Comment component located inside 'Single.js' to have some usable props:
 ```
@@ -943,9 +941,10 @@ export default Comments;
 Nice
 
 
-///////////////////////////////////////////////////////////////////////
-Updating comment state in our store
-///////////////////////////////////////////////////////////////////////
+
+### Updating comment state in our store
+
+
 when we submit a new comment, it just refreshes the page. its not hooked up to anything. lets add a submit handler to our form:
 
 ```
@@ -1037,9 +1036,10 @@ nice. its working, our action is being dispatched. now we should actually update
 5. we added a console.log() statement to check and make sure the action is being dispatched, and it is.
 
 
-///////////////////////////////////////////////////////////////////////
-Redux Reducer Composition
-///////////////////////////////////////////////////////////////////////
+
+### Redux Reducer Composition
+
+
 
 our 'comments' state is a big object with all comments, with each item being a key based on the unique id of the associated post and an array with its comments.
 
@@ -1214,9 +1214,9 @@ we wanna delete the 3rd one. we return wow and neat, skip cool, and return nice 
 
 
 
-///////////////////////////////////////////////////////////////////////
-Hot Reloading Redux Reducers with webpack
-///////////////////////////////////////////////////////////////////////
+
+### Hot Reloading Redux Reducers with webpack
+
 
 we can do live reload in our jsx fine, but if we want to change our reducer (ex: we want to change -click = 1 like to click = 10 likes)...we can do this by
 
@@ -1233,9 +1233,9 @@ if (module.hot) {
 ```
 
 
-///////////////////////////y ////////////////////////////////////////////
-Hot Reloading Redux Reducers with webpack
-///////////////////////////////////////////////////////////////////////
+
+### Hot Reloading Redux Reducers with webpack
+
 
 redux devTools' 'sweep' tab literally logs every action that is fired off and displays the state, action, etc...if you want to go 'back in time' to say, debug something, you can simply click on that action to toggle it to remove it from happening in the UI.
 
@@ -1245,9 +1245,9 @@ redux devTools' 'sweep' tab literally logs every action that is fired off and di
 - reset = brings all actions (including commits) all the way back to initial state
 
 
-///////////////////////////y ////////////////////////////////////////////
-course wrap-up
-///////////////////////////////////////////////////////////////////////
+
+### course wrap-up
+
 
 main ideas of redux
 
