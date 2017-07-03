@@ -1,4 +1,6 @@
-* in redux, we keep all our data in a 'store'...rather than holding our component state in the component, we just contain it in one giant object.
+# Redux Course Notes (abridged)
+
+In redux, we keep all our data in a 'store'...rather than holding our component state in the component, we just contain it in one giant object.
 
 in store.js:
 ```
