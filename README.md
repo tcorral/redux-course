@@ -1,6 +1,7 @@
 # Redux Course Notes (abridged)
 <details>
 <summary>main ideas of redux</summary>
+
 1. all state lives in a giant object, a store.
 2. we update the store with 'actions'
 3. we have 'action creators' that create actions that include what happened and a payload of info thats needed (ex: where did this happen)
