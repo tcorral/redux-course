@@ -1,6 +1,6 @@
 # Redux Course Notes (abridged)
-
-### main ideas of redux
+<details>
+<summary>main ideas of redux</summary>
 1. all state lives in a giant object, a store.
 2. we update the store with 'actions'
 3. we have 'action creators' that create actions that include what happened and a payload of info thats needed (ex: where did this happen)
@@ -40,8 +40,9 @@ export const history = syncHistoryWithStore(browserHistory, store);
 //export our store
 export default store;
 ```
-
-# Actions
+</details>
+<details>
+<summary>Actions</summary>
 * actions are something that happens in your app (someone clicks a photo, someone likes a photo, someone deletes a comment, etc). whenever this happens, someone dispatches an action.
 
 The dispatch action has 2 things:
@@ -63,8 +64,9 @@ export function increment(index) {
 ^ this is called an 'action creator' because the object returned is considered the 'action' but the function itself is the 'creator' that will dispatch it out when called.
 
 weird? the function is the creator, the object returned is the action.
-
-# Reducers
+</details>
+<details>
+<summary>Reducers</summary>
 next we'll need to create the second part of these action creators, so when these actions get fired or dispatched, we actually handle the data (we update those likes, we add that comment, etc)...we do this with REDUCERS.
 
 * actions/action creators get fired off or 'dispatched' with info about what just happened. what it DOES NOT do is update our state (in redux, our "store"). we need to create a 'reducer' to do this.
@@ -184,10 +186,9 @@ export const history = syncHistoryWithStore(browserHistory, store);
 
 So now our store is exposed to our app and we can check it out via going to our 'react' tab in devtools, selecting <Provider>, then in the console:
 `$r.store.getState();`
-
-
-# Understanding the reducer's job and dispatching actions
-
+</details>
+<details>
+<summary>Understanding the reducer's job and dispatching actions</summary>
 reminder: action = what happened and where, reducer = the change that happens
 
 ^ how do we hook them up together?
@@ -209,11 +210,10 @@ Object {type: "INCREMENT_LIKES", index: 0}
 ^ as you see, both `posts.js` and `comments.js`: are fired off. THIS IS ESSENTIAL FOR UNDERSTANDING REDUX.
 
 * WHEN YOU DISPATCH AN ACTION, EVERY REDUCER RUNS. IF YOU WANT TO ACT UPON THAT ACTION, YOU HAVE TO DEFINE THAT IN THE REDUCER.
+</details>
 
-
-
-# Accessing Dispatch and State with Redux
-
+<details>
+<summary>Accessing Dispatch and State with Redux</summary>
 How to populate data? In react, we typically pass state in at the top level and then pass it down to wherever it should go via props. In redux, we use "connect" to inject data at the component level we want it at, then pass it down if we want.
 
 if we look at our main.js file at the moment, it looks like this:
@@ -307,9 +307,9 @@ In redux, all our state lives in a store. we make the store accessible via the '
 
 It looks a bit weird because of the syntax (double parantheses), but makes sense. here's a fantastic read on connect():
 http://www.sohamkamani.com/blog/2017/03/31/react-redux-connect-explained/
-
-
-# Displaying Redux state inside our components
+</details>
+<details>
+<summary>Displaying Redux state inside our components</summary>
 
 lets create Photo.js inside our /components directory:
 ```
@@ -400,7 +400,7 @@ in photo.js
 
 now when we click, ALL REDUCERS show up in console.
 
-An Aside about pure/impure functions:
+### An Aside about pure/impure functions:
 redux is designed in a functional programming style, meaning no impure functions. impure functions are functions that have side effects and affect things not within itself. take this for example:
 ```
 function addLike(picture) {
@@ -535,11 +535,11 @@ export default Comments;
       )
    }
 ```
-
-# Updating comment state in our store
+</details>
+<details>
+<summary>Updating comment state in our store</summary>
 
 so on submitting a new comment, we just refresh the page. lets handle that submit so new comments can be added.
-
 ```
    handleSubmit(e) {
       e.preventDefault();
@@ -608,10 +608,10 @@ Now its working, our action is being dispatched. now we should actually update t
 `this.props.addComment(postId, author, comment);`
 
 5. we added a console.log() statement to check and make sure the action is being dispatched, and it is.
+</details>
 
-
-
-# Redux Reducer Composition
+<details>
+<summary>Redux Reducer Composition</summary>
 our 'comments' state is a big object with all comments, with each item being a key based on the unique id of the associated post and an array with its comments.
 
 when we want to add a comment we dont have to update the entire 'comments' state, we just want to update that one little piece.
@@ -726,9 +726,9 @@ another example: `["wow","neat","cool","nice"];`
 we wanna delete the 3rd one. we return wow and neat, skip cool, and return nice too:
 
 `["wow","neat","nice"];`
-
-
-# Hot Reloading Redux Reducers with webpack
+</details>
+<details>
+<summary>Hot Reloading Redux Reducers with webpack</summary>
 
 we can do live reload in our jsx fine, but if we want to change our reducer (ex: we want to change -click = 1 like to click = 10 likes) we have to do some additional work:
 
@@ -743,9 +743,9 @@ if (module.hot) {
 }
 ```
 ^ definitely worth a review
-
-
-# Redux DevTools
+</details>
+<details>
+<summary>Redux DevTools</summary>
 redux devTools' 'sweep' tab literally logs every action that is fired off and displays the state, action, etc...if you want to go 'back in time' to say, debug something, you can simply click on that action to toggle it to remove it from happening in the UI.
 
 an abridged description of Redux DevTools tabs:
@@ -754,3 +754,4 @@ an abridged description of Redux DevTools tabs:
 * commit = works similar to git commit...adds any change to be the initial state
 * revert = reverts anything since your last commit
 * reset = brings all actions (including commits) all the way back to initial state
+</details>
