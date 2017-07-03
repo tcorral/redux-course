@@ -15,10 +15,6 @@ const defaultState = {
    comments
 };
 
-// let combinedReducers = combineReducers({
-//     routing: routerReducer,
-//     rootReducer
-// });
 
 const store = createStore(rootReducer, defaultState);
 
@@ -27,6 +23,14 @@ const store = createStore(rootReducer, defaultState);
 
 //create our history with the store to be exported (IDK what this method does)
 export const history = syncHistoryWithStore(browserHistory, store);
+
+//allows hot reload by checking to see if module has changed first then...something?
+if (module.hot) {
+   module.hot.accept('./reducers/', () => {
+      const nextRootReducer = require('./reducers/index').default;
+      store.replaceReducer(nextRootReducer);
+   });
+}
 
 //export our store
 export default store;

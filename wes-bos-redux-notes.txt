@@ -1212,3 +1212,50 @@ we wanna delete the 3rd one. we return wow and neat, skip cool, and return nice 
 ["wow","neat","nice"];
 ```
 
+
+
+///////////////////////////////////////////////////////////////////////
+Hot Reloading Redux Reducers with webpack
+///////////////////////////////////////////////////////////////////////
+
+we can do live reload in our jsx fine, but if we want to change our reducer (ex: we want to change -click = 1 like to click = 10 likes)...we can do this by
+
+open store.js:
+
+```
+//allows hot reload by checking to see if module has changed first then...something?
+if (module.hot) {
+   module.hot.accept('./reducers/', () => {
+      const nextRootReducer = require('./reducers/index').default;
+      store.replaceReducer(nextRootReducer);
+   });
+}
+```
+
+
+///////////////////////////y ////////////////////////////////////////////
+Hot Reloading Redux Reducers with webpack
+///////////////////////////////////////////////////////////////////////
+
+redux devTools' 'sweep' tab literally logs every action that is fired off and displays the state, action, etc...if you want to go 'back in time' to say, debug something, you can simply click on that action to toggle it to remove it from happening in the UI.
+
+- sweep = remove any actions from your UI/log
+- commit = works similar to git commit...adds any change to be the initial state
+- revert = reverts anything since your last commit
+- reset = brings all actions (including commits) all the way back to initial state
+
+
+///////////////////////////y ////////////////////////////////////////////
+course wrap-up
+///////////////////////////////////////////////////////////////////////
+
+main ideas of redux
+
+1. all state lives in a giant object, a store.
+2. we update the store with 'actions'
+3. we have 'action creators' that create actions that include what happened and a payload of info thats needed (ex: where did this happen)
+4. when the actions get dispatched, they get handled by a reducer
+5. the reducer is responsible for updating your state.
+
+- we used 'matchStateToProps()' and 'matchDispatchToProps()' in order to expose our state and our action functions to our components (using connect()).
+-
