@@ -1,5 +1,15 @@
 # Redux Course Notes (abridged)
 
+### main ideas of redux
+1. all state lives in a giant object, a store.
+2. we update the store with 'actions'
+3. we have 'action creators' that create actions that include what happened and a payload of info thats needed (ex: where did this happen)
+4. when the actions get dispatched, they get handled by a reducer
+5. the reducer is responsible for updating your state.
+
+* we used `matchStateToProps()` and `matchDispatchToProps()` in order to expose our state and our action functions to our components (using `connect()`).
+
+# Store
 In redux, we keep all our data in a 'store'...rather than holding our component state in the component, we just contain it in one giant object.
 
 in store.js:
@@ -744,15 +754,3 @@ an abridged description of Redux DevTools tabs:
 * commit = works similar to git commit...adds any change to be the initial state
 * revert = reverts anything since your last commit
 * reset = brings all actions (including commits) all the way back to initial state
-
-
-# Course wrap-up
-main ideas of redux
-
-1. all state lives in a giant object, a store.
-2. we update the store with 'actions'
-3. we have 'action creators' that create actions that include what happened and a payload of info thats needed (ex: where did this happen)
-4. when the actions get dispatched, they get handled by a reducer
-5. the reducer is responsible for updating your state.
-
-* we used `matchStateToProps()` and `matchDispatchToProps()` in order to expose our state and our action functions to our components (using `connect()`).
