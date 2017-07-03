@@ -29,7 +29,7 @@ export const history = syncHistoryWithStore(browserHistory, store);
 export default store;
 ```
 
-### Actions
+# Actions
 * actions are something that happens in your app (someone clicks a photo, someone likes a photo, someone deletes a comment, etc). whenever this happens, someone dispatches an action.
 
 The dispatch action has 2 things:
@@ -52,7 +52,7 @@ export function increment(index) {
 
 weird? the function is the creator, the object returned is the action.
 
-### Reducers
+# Reducers
 next we'll need to create the second part of these action creators, so when these actions get fired or dispatched, we actually handle the data (we update those likes, we add that comment, etc)...we do this with REDUCERS.
 
 * actions/action creators get fired off or 'dispatched' with info about what just happened. what it DOES NOT do is update our state (in redux, our "store"). we need to create a 'reducer' to do this.
@@ -174,7 +174,7 @@ So now our store is exposed to our app and we can check it out via going to our 
 `$r.store.getState();`
 
 
-### Understanding the reducer's job and dispatching actions
+# Understanding the reducer's job and dispatching actions
 
 reminder: action = what happened and where, reducer = the change that happens
 
@@ -200,7 +200,7 @@ Object {type: "INCREMENT_LIKES", index: 0}
 
 
 
-### Accessing Dispatch and State with Redux
+# Accessing Dispatch and State with Redux
 
 How to populate data? In react, we typically pass state in at the top level and then pass it down to wherever it should go via props. In redux, we use "connect" to inject data at the component level we want it at, then pass it down if we want.
 
@@ -297,7 +297,7 @@ It looks a bit weird because of the syntax (double parantheses), but makes sense
 http://www.sohamkamani.com/blog/2017/03/31/react-redux-connect-explained/
 
 
-### Displaying Redux state inside our components
+# Displaying Redux state inside our components
 
 lets create Photo.js inside our /components directory:
 ```
@@ -371,7 +371,7 @@ export default Photo;
 
 These link urls go to urls based on the `<Single>` component we defined in `main.js`
 
-### Updating our state with reducers
+# Updating our state with reducers
 
 when someone clicks a 'like' button, we want the 'increment' function to run. we've already included the 'increment' function via props, so we can pass it in a click handler:
 
@@ -443,7 +443,7 @@ function posts(state =[], action) {
 
 ^ we're returning a copy of the new state array, which includes all the same stuff EXCEPT it updates the specific state index's 'likes' object to be incremented by 1. One thing I've learned a lot about react and redux is the need to create copies of state to replace the state them rather than just updating the current state. seems cleaner.
 
-### Displaying the single component
+# Displaying the single component
 
 lets update our Comment component located inside 'Single.js' to have some usable props:
 ```
@@ -524,7 +524,7 @@ export default Comments;
    }
 ```
 
-### Updating comment state in our store
+# Updating comment state in our store
 
 so on submitting a new comment, we just refresh the page. lets handle that submit so new comments can be added.
 
@@ -599,7 +599,7 @@ Now its working, our action is being dispatched. now we should actually update t
 
 
 
-### Redux Reducer Composition
+# Redux Reducer Composition
 our 'comments' state is a big object with all comments, with each item being a key based on the unique id of the associated post and an array with its comments.
 
 when we want to add a comment we dont have to update the entire 'comments' state, we just want to update that one little piece.
@@ -716,7 +716,7 @@ we wanna delete the 3rd one. we return wow and neat, skip cool, and return nice 
 `["wow","neat","nice"];`
 
 
-### Hot Reloading Redux Reducers with webpack
+# Hot Reloading Redux Reducers with webpack
 
 we can do live reload in our jsx fine, but if we want to change our reducer (ex: we want to change -click = 1 like to click = 10 likes) we have to do some additional work:
 
@@ -733,7 +733,7 @@ if (module.hot) {
 ^ definitely worth a review
 
 
-### Redux DevTools
+# Redux DevTools
 redux devTools' 'sweep' tab literally logs every action that is fired off and displays the state, action, etc...if you want to go 'back in time' to say, debug something, you can simply click on that action to toggle it to remove it from happening in the UI.
 
 an abridged description of Redux DevTools tabs:
@@ -744,7 +744,7 @@ an abridged description of Redux DevTools tabs:
 * reset = brings all actions (including commits) all the way back to initial state
 
 
-### Course wrap-up
+# Course wrap-up
 main ideas of redux
 
 1. all state lives in a giant object, a store.
